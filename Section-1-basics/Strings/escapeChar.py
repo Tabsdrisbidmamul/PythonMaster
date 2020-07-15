@@ -18,3 +18,4 @@ print(r"C:\Users\timbuchalka\notes.txt")
 age = 24
 print(type(age))
 print(type(splitString))
+
