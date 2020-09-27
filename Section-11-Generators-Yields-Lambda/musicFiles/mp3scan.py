@@ -1,6 +1,8 @@
 import os
 import fnmatch
 
+import id3reader_p3 as id3reader
+
 
 def complete_filename(root, ext):
     for path, directories, _ in os.walk(root, topdown=True):
@@ -21,6 +23,20 @@ def find_music(root, ext):
 
 
 relative_path = find_music("music", "emp3")
+error_list = []
 
 for s in relative_path:
-    print(s)
+    try:
+        id3r = id3reader.Reader(s)
+        print("Artist: {}, Album: {}, Track: {}, Song: {}".format(
+            id3r.get_value('performer'),
+            id3r.get_value('album'),
+            id3r.get_value('track'),
+            id3r.get_value('title')
+        ))
+    except:
+        # print("Error in this file: {}".format(s))
+        error_list.append(s)
+
+for e in error_list:
+    print(e)
